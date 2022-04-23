@@ -29,13 +29,18 @@ int search(vector<int>& data, int left, int right) {
     // Even index case
     if (mid % 2 == 0) {
         if (data[mid] == data[mid+1]) {
-            search(data, mid+2, right);
+            return search(data, mid+2, right);
         } else {
-            search(data, left, mid-2);
+            return search(data, left, mid);
+        }
+    // Odd index case
+    } else {
+        if (data[mid] == data[mid+1]) {
+            return search(data, left, mid-1);
+        } else {
+            return search(data, mid+1, right);
         }
     }
-    // Odd index case
-
 }
 
 int main() {
