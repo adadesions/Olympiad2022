@@ -22,7 +22,7 @@ int binarySearch(int data[], int left, int right, int target) {
 int main() {
     int data[] = {1, 2, 5, 8, 19, 50, 108, 322};
     int size = sizeof(data) / sizeof(data[0]);
-    int target = 108;
+    int target = -1;
 
     // return target's index if notFound return -1
     // Init: left = 0, right = size - 1
