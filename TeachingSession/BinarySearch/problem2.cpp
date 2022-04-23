@@ -22,17 +22,22 @@
 using namespace std;
 
 int search(vector<int>& data, int target) {
+    // Init Step
      int left = 0;
      int right = data.size() - 1;
+
      while (left <= right) {
          int mid = (left + right) * 0.5;
          if (data[mid] == target) return mid;
+        // to Decide to left side
          else if (data[left] <= data[mid]) {
+             // data[left] <= target <= data[mid]
             if (target >= data[left] && target < data[mid]) {
                 right = mid - 1;
             } else {
                 left = mid + 1;
             }
+        // to Decide to right side
          } else if (data[mid] <= data[right]) {
             if (target <= data[right] && target >= data[mid]) {
                 left = mid + 1;
@@ -45,8 +50,8 @@ int search(vector<int>& data, int target) {
 }
 
 int main() {
-    vector<int> data{4, 5, 6, 7, 0, 1, 2};
-    int target = 2;
+    vector<int> data{4, 5, 6, 7, 0, 1, 2};    
+    int target = 99;
     int result = search(data, target);
     (result != -1)
     ? printf("Found at %d\n", result)
