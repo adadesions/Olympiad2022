@@ -43,7 +43,7 @@ int search(vector<int>& data, int left, int right) {
     }
 }
 
-int main() {
+int main() {                      
     vector<int> data {1, 1, 2, 2, 1, 1, 2, 2, 13, 1, 1, 40, 40, 13, 13};
     int result = search(data, 0, data.size()-1);
     (result != -1)
