@@ -28,22 +28,23 @@
 
 #include <stdio.h>
 #include <vector>
-#include <algorithm>
 #include <string>
 #include <iostream>
+#include <algorithm>
 
 using namespace std;
 
 void print(vector<int>& data) {
-    int last = data.back();
+    int counter = 0;
+    int size = data.size();
     printf("[");
     for (int d : data) {
-        if (d == last) {
+        if (counter == size-1) {
             printf("%d]\n", d);
             break;
         }
-
         printf("%d, ", d);
+        counter++;
     }
 }
 
@@ -75,9 +76,9 @@ vector<int> arrayForm(vector<int>& nums, int k) {
     return result;
 }
 
-int main() {
-    vector<int> nums {1, 2, 0, 0};
-    int k = 34;
+int main() {    
+    vector<int> nums {2, 1, 5};
+    int k = 806;
     vector<int> result = arrayForm(nums, k);
 
     print(result);
