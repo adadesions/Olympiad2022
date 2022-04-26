@@ -10,26 +10,25 @@
 #include <stdio.h>
 #include <vector>
 #include <queue>
-#include <string>
 #include <algorithm>
 
 using namespace std;
 
 struct Item {
-    float weight;
+    double weight;
     int value;
 };
 
 struct Node {
-    float weight;
+    double weight;
     int level;
     int profit;
     int bound;
 };
 
 bool compare(Item m, Item n) {    
-    float ratio1 = (float)m.value / m.weight; // Casting to float
-    float ratio2 = (float)n.value / n.weight;
+    double ratio1 = (double)m.value / m.weight; // Casting to double
+    double ratio2 = (double)n.value / n.weight;
 
     return ratio1 > ratio2;
 }
@@ -39,24 +38,22 @@ int calBound(Node next, int size, int W, Item data[]) {
         return 0;
     }
 
-    int profitBound = next.bound;
+    int profitBound = next.profit;
     int idx = next.level + 1;
     int totalWeight = next.weight;
 
-    // idx < treeHeight and totalWeight <= W
-    int predictWeight = totalWeight + data[idx].weight;
-    while (idx < size && predictWeight <= W) {        
-        totalWeight += predictWeight;
+    // idx < treeHeight and totalWeight <= W    
+    while (idx < size && (totalWeight + data[idx].weight) <= W) {        
+        totalWeight += data[idx].weight;                
         profitBound += data[idx].value;
 
-        // Update value for loop conditions
-        predictWeight = totalWeight + data[idx].weight;
+        // Update value for loop conditions        
         idx++;
     }
 
     // If data[idx] is not a leaf node, then update it profit
     if (idx < size) {
-        float ratio = data[idx].value / data[idx].weight;
+        double ratio = data[idx].value / data[idx].weight;
         profitBound += (W - totalWeight) * ratio;
     }
 
@@ -83,6 +80,7 @@ int knapsack(Item data[], int W, int size) {
     // Step 5 ^^
     int counter = 0;
     while (!Q.empty()) {
+        printf("is Q empty %d\n", Q.empty());
         u = Q.front();
         Q.pop();
 
