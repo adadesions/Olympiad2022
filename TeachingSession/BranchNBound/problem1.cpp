@@ -110,7 +110,7 @@ int knapsack(Item data[], int W, int size) {
         
         // With Out Knapsack condition
         next.weight = u.weight;
-        next.level = u.profit;
+        next.profit = u.profit;
         next.bound = calBound(next, size, W, data);
         if (next.bound > maxProfit)
             Q.push(next);
