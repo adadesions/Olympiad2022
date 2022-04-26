@@ -35,7 +35,7 @@ bool compare(Item m, Item n) {
 }
 
 int calBound(Node next, int size, int W, Item data[]) {
-    if (next.weight >= W) {
+    if (next.weight >= W) {        
         return 0;
     }
 
@@ -46,7 +46,7 @@ int calBound(Node next, int size, int W, Item data[]) {
     // idx < treeHeight and totalWeight <= W
     int predictWeight = totalWeight + data[idx].weight;
     while (idx < size && predictWeight <= W) {        
-        totalWeight = predictWeight;
+        totalWeight += predictWeight;
         profitBound += data[idx].value;
 
         // Update value for loop conditions
@@ -81,6 +81,7 @@ int knapsack(Item data[], int W, int size) {
     Q.push(u);
 
     // Step 5 ^^
+    int counter = 0;
     while (!Q.empty()) {
         u = Q.front();
         Q.pop();
@@ -99,16 +100,27 @@ int knapsack(Item data[], int W, int size) {
         next.weight = u.weight + data[next.level].weight;
 
         // Knapnack Condition, W is Knapsace capacity
-        if (next.weight < W && next.profit > maxProfit)
+        if (next.weight <= W && next.profit > maxProfit)
             maxProfit = next.profit;
         
         // Compute Bound for next level node
         next.bound = calBound(next, size, W, data);
 
-
+        // If bound > maxProfit, enqueue next node
+        if (next.bound > maxProfit)
+            Q.push(next);
+        
+        // With Out Knapsack condition
+        next.weight = u.weight;
+        next.level = u.profit;
+        next.bound = calBound(next, size, W, data);
+        if (next.bound > maxProfit)
+            Q.push(next);
+        
+        printf("%d, current maxProfit = %d\n", counter++, maxProfit);
     }
 
-    return 0;
+    return maxProfit;
 }
 
 int main() {
@@ -117,6 +129,7 @@ int main() {
 
     // Sizeof 64 bytes / 8 bytes = 8 items
     int size = sizeof(data) / sizeof(data[0]);
+    printf("Size: %d\n", size);
 
     int maxProfit = knapsack(data, W, size);
     printf("Maximum profit is %d\n", maxProfit);
