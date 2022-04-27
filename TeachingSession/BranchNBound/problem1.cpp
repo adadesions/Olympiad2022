@@ -123,7 +123,7 @@ int knapsack(Item data[], int W, int size) {
 
 int main() {
     Item data[] = {{2, 40}, {3.14, 50}, {1.98, 100}, {5, 95}, {3, 30}};
-    int W = 10;
+    int W = 5;
 
     // Sizeof 64 bytes / 8 bytes = 8 items
     int size = sizeof(data) / sizeof(data[0]);
